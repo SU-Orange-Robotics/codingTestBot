@@ -1,28 +1,37 @@
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
 /*    Module:       main.cpp                                                  */
-/*    Author:       davet                                                     */
-/*    Created:      10/6/2023, 6:02:14 PM                                     */
+/*    Author:       danie                                                     */
+/*    Created:      10/6/2023, 5:40:55 PM                                     */
 /*    Description:  V5 project                                                */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 #include "vex.h"
+#include <cmath>
+#include <iostream>
+#include "robot-config.h"
 
 using namespace vex;
+using namespace std;
 
 // A global instance of vex::brain used for printing to the V5 brain screen
 vex::brain       Brain;
 
 // define your global instances of motors and other devices here
 
-controller Controller1 = controller(primary);
+void leftDrive(double y, double x) {
+  LeftMotorA.spin(directionType::fwd, y + x/2, velocityUnits::pct);
+  LeftMotorB.spin(directionType::fwd, y + x/2, velocityUnits::pct);
+}
 
+void rightDrive(double y, double x) {
+  RightMotorA.spin(directionType::fwd, y - x/2, velocityUnits::pct);
+  RightMotorB.spin(directionType::fwd, y - x/2, velocityUnits::pct);
+}
 
-
-
-
-void vexcodeInit(void) {
-  // Nothing to initialize
+void drive(double y, double x) {
+  leftDrive(y, x);
+  rightDrive(y, x);
 }
 
 int main() {
@@ -33,5 +42,6 @@ int main() {
         
         // Allow other tasks to run
         this_thread::sleep_for(10);
+        drive(Controller1.Axis1.value(), Controller1.Axis2.value());
     }
 }
