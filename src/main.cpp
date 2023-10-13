@@ -24,6 +24,8 @@ void leftDrive(double y, double x) {
   LeftMotorB.spin(directionType::fwd, y + x/2, velocityUnits::pct);
 }
 
+// first parameter to specify forward/backward, second parameter is measure of velocity, third to specify units of velocity
+
 void rightDrive(double y, double x) {
   RightMotorA.spin(directionType::fwd, y - x/2, velocityUnits::pct);
   RightMotorB.spin(directionType::fwd, y - x/2, velocityUnits::pct);
